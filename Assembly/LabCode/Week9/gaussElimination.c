@@ -1,50 +1,42 @@
 #include <stdio.h>
 
+#define N 3
 
-int main(void)
-{
-    int i,j,k,n;
-    float A[20][20], c, x[10], sum=0.0;
-    printf("\nEnter the order of matrix: ");
-    scanf("%d",&n);
-    printf("\nEnter the elements of augmented matrix row-wise:\n\n");
-    for(i=1; i<=n; i++)
-    {
-        for(j=1; j<=(n+1); j++)
-        {
-            printf("A[%d][%d] : ", i,j);
-            scanf("%f",&A[i][j]);
+void printMatrix(float A[N][N], float vector[N][1]);
+
+int main(void) {
+    int i, j, k;
+    float p[N+1], A[N][N] = {{2, 1, 4},
+                              {3, 4, 2},
+                              {7, 5, 8}};
+    float vector[N][1] = {{6},{3},{5}};
+
+    printMatrix(A, vector);
+
+
+    for (i = 0; i < N; i++) {
+      for (j = i + 1; j < N; j++) {
+        for (k = 0; k < N; k++) {
+          p[k] = -(A[i][k]/A[i][i])*A[j][i];
+          p[N] = -(vector[i][0]/A[i][i])*vector[j][0];
         }
-    }
-    for(j=1; j<=n; j++) /* loop for the generation of upper triangular matrix*/
-    {
-        for(i=1; i<=n; i++)
-        {
-            if(i>j)
-            {
-                c=A[i][j]/A[j][j];
-                for(k=1; k<=n+1; k++)
-                {
-                    A[i][k]=A[i][k]-c*A[j][k];
-                }
-            }
+        for (k = 0; k < N; k++) {
+          A[j][k] = p[k] + A[j][k];
         }
+        vector[i][0] = p[N] + vector[i][0];
+        printMatrix(A, vector);
+      }
     }
-    x[n]=A[n][n+1]/A[n][n];
-    /* this loop is for backward substitution*/
-    for(i=n-1; i>=1; i--)
-    {
-        sum=0;
-        for(j=i+1; j<=n; j++)
-        {
-            sum=sum+A[i][j]*x[j];
-        }
-        x[i]=(A[i][n+1]-sum)/A[i][i];
-    }
-    printf("\nThe solution is: \n");
-    for(i=1; i<=n; i++)
-    {
-        printf("\nx%d=%f\t",i,x[i]); /* x1, x2, x3 are the required solutions*/
-    }
-    return(0);
+    return 0;
+}
+
+void printMatrix(float A[N][N], float vector[N][1]) {
+  int i, j;
+  for(i=0; i < N; i++) {
+      for(j=0; j < N; j++) {
+          printf("%10f ", A[i][j]);
+      }
+      printf(": %10f\n", vector[i][0]);
+  }
+  printf("\n");
 }
