@@ -2,7 +2,7 @@
 
 #define N 3
 
-void printMatrix(float A[N][N], float vector[N][1]);
+/*void printMatrix(float A[N][N], float vector[N][1]);*/
 
 int main(void) {
     int i, j, k;
@@ -11,7 +11,7 @@ int main(void) {
                               {7, 5, 8}};
     float vector[N][1] = {{6},{3},{5}};
 
-    printMatrix(A, vector);
+    /*printMatrix(A, vector);*/
 
 
     for (i = 0; i < N; i++) {
@@ -24,13 +24,13 @@ int main(void) {
           A[j][k] = p[k] + A[j][k];
         }
         vector[i][0] = p[N] + vector[i][0];
-        printMatrix(A, vector);
+        /*printMatrix(A, vector);*/
       }
     }
     return 0;
 }
 
-void printMatrix(float A[N][N], float vector[N][1]) {
+/*void printMatrix(float A[N][N], float vector[N][1]) {
   int i, j;
   for(i=0; i < N; i++) {
       for(j=0; j < N; j++) {
@@ -39,4 +39,4 @@ void printMatrix(float A[N][N], float vector[N][1]) {
       printf(": %10f\n", vector[i][0]);
   }
   printf("\n");
-}
+}*/
